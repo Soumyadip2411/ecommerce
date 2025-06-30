@@ -92,8 +92,7 @@ const VideoHero = () => {
         <div className="video-hero-wrapper" ref={wrapperRef}>
           <nav className="video-navbar">
             <div className="video-logo">
-              <img src="/src/assets/logo.png" alt="Ghar Bazaar" className="h-10" />
-              <span className='text-[24px] font-bold text-white'>GHAR BAZAAR</span>
+              
             </div>
             
           </nav>
@@ -131,6 +130,7 @@ const VideoHero = () => {
           <div className="video-decoration">
             <div className="video-floating-icon">
               <FaHeart className="text-primary-200" size={24} />
+                
             </div>
             <div className="video-floating-icon-delayed">
               <FaShoppingCart className="text-accent-200" size={24} />
