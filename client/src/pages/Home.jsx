@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { valideURLConvert } from '../utils/valideURLConvert'
 import {Link, useNavigate} from 'react-router-dom'
 import CategoryWiseProductDisplay from '../components/CategoryWiseProductDisplay'
+import VideoHero from '../components/VideoHero'
 import { motion } from 'framer-motion'
 
 const Home = () => {
@@ -69,18 +70,19 @@ const Home = () => {
   }
 
   return (
-
-    
-   <motion.section 
-     className=''
-     variants={containerVariants}
-     initial="hidden"
-     animate="visible"
-     exit={{ opacity: 0, y: 20, transition: { duration: 0.3 } }} 
-   >
-    
-    
-      <div className='container mx-auto'>
+    <>
+      {/* Video Hero Section */}
+      <VideoHero />
+      
+      {/* Original Content */}
+      <motion.section 
+        className=''
+        variants={containerVariants}
+        initial="hidden"
+        animate="visible"
+        exit={{ opacity: 0, y: 20, transition: { duration: 0.3 } }} 
+      >
+        <div className='container mx-auto'>
           <motion.div 
             className={`w-full h-full min-h-48 bg-gradient-to-r from-primary-100/10 to-accent-200/10 rounded-lg overflow-hidden ${!banner && "animate-pulse my-2" } `}
             variants={bannerVariants}
@@ -166,8 +168,8 @@ const Home = () => {
           )
         })
       }
-   </motion.section>
-   
+      </motion.section>
+    </>
   )
 }
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useGlobalContext } from '../provider/GlobalProvider'
-import { FaCartShopping } from 'react-icons/fa6'
+import { FaOpencart } from "react-icons/fa";
 import { DisplayPriceInRupees } from '../utils/DisplayPriceInRupees'
 import { Link } from 'react-router-dom'
 import { FaCaretRight } from "react-icons/fa";
@@ -71,7 +71,7 @@ const CartMobileLink = () => {
                     variants={iconVariants}
                     whileHover="hover"
                   >
-                    <FaCartShopping size={20}/>
+                    <FaOpencart  size={20}/>
                   </motion.div>
                   <div className='text-xs'>
                     <p className='font-medium text-gray-200'>{totalQty} items</p>
