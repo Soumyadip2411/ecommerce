@@ -3,7 +3,7 @@ import './App.css'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import toast, { Toaster } from 'react-hot-toast';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import fetchUserDetails from './utils/fetchUserDetails';
 import { setUserDetails } from './store/userSlice';
 import { setAllCategory,setAllSubCategory,setLoadingCategory } from './store/productSlice';
@@ -18,6 +18,7 @@ import CartMobileLink from './components/CartMobile';
 function App() {
   const dispatch = useDispatch()
   const location = useLocation()
+  const [openCartSection, setOpenCartSection] = useState(false);
   
 
   const fetchUser = async()=>{
@@ -74,14 +75,16 @@ function App() {
         <div className="fixed inset-0 -z-10">
           <div className="w-full h-full bg-gradient-to-br from-gray-50 via-green-50 to-emerald-100" />
         </div>
-        <Header/>
+        <Header openCartSection={openCartSection} setOpenCartSection={setOpenCartSection}/>
         <main className='min-h-[78vh] relative z-10'>
             <Outlet/>
         </main>
         <Footer/>
         <Toaster/>
         {
-          location.pathname !== '/checkout' && (
+          location.pathname !== '/checkout' &&
+          location.pathname !== '/cart' &&
+          !openCartSection && (
             <CartMobileLink/>
           )
         }

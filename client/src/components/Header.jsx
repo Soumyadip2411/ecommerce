@@ -12,7 +12,7 @@ import { DisplayPriceInRupees } from '../utils/DisplayPriceInRupees';
 import { useGlobalContext } from '../provider/GlobalProvider';
 import DisplayCartItem from './DisplayCartItem';
 
-const Header = () => {
+const Header = ({ openCartSection, setOpenCartSection }) => {
     const [ isMobile ] = useMobile()
     const location = useLocation()
     const isSearchPage = location.pathname === "/search"
@@ -23,7 +23,6 @@ const Header = () => {
     // const [totalPrice,setTotalPrice] = useState(0)
     // const [totalQty,setTotalQty] = useState(0)
     const { totalPrice, totalQty} = useGlobalContext()
-    const [openCartSection,setOpenCartSection] = useState(false)
  
     const redirectToLoginPage = ()=>{
         navigate("/login")

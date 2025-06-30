@@ -218,14 +218,14 @@ const DisplayCartItem = ({close}) => {
                     {
                         cartItem[0] && (
                             <motion.div 
-                                className='p-2'
+                                className='p-2 sticky bottom-0 bg-white z-20'
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 exit={{ opacity: 0, y: 20 }}
                                 transition={{ delay: 0.7 }}
                             >
                                 <motion.div 
-                                    className='bg-slate-800 text-white px-4 font-bold text-base py-4 static bottom-3 rounded-lg flex items-center gap-4 justify-between shadow-lg'
+                                    className='bg-slate-800 text-white px-4 font-bold text-base py-4 rounded-lg flex items-center gap-4 justify-between shadow-lg'
                                     variants={buttonVariants}
                                     whileHover="hover"
                                     whileTap="tap"
