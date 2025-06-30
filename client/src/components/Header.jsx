@@ -4,7 +4,7 @@ import Search from './Search'
 import { Link, useLocation,useNavigate } from 'react-router-dom'
 import { FaRegCircleUser } from "react-icons/fa6";
 import useMobile from '../hooks/useMobile';
-import { BsCart4 } from "react-icons/bs";
+import { FaOpencart } from "react-icons/fa6";
 import { useSelector } from 'react-redux';
 import { GoTriangleDown, GoTriangleUp  } from "react-icons/go";
 import UserMenu from './UserMenu';
@@ -163,7 +163,7 @@ return (
                                                                                                     hover:animate-pulse
                                                                                             `}
                                                                                     >
-                                                                                            <BsCart4 size={26}/>
+                                                                                            <FaOpencart  size={26}/>
                                                                                     </div>
                                                                                     <div className='font-semibold text-sm'>
                                                                                             {
