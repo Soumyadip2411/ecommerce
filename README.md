@@ -51,6 +51,29 @@ A modern, full-stack e-commerce application inspired by BlinkIt, built with Reac
   - View and manage all orders
   - Order status updates
   - Customer order tracking
+## Screen Shots 
+ - ** Home Page
+ - ![image](https://github.com/user-attachments/assets/30f47230-7fbd-4006-8443-518496f37ca7)
+- ** Account Layout
+- ![image](https://github.com/user-attachments/assets/6a03fdc2-db7d-48e6-ab36-531172ecdb4d)
+- ** Search Page
+- ![image](https://github.com/user-attachments/assets/b0e06f46-7571-4ee6-9ef0-fb22f9790e71)
+- ** Product Page
+- ![image](https://github.com/user-attachments/assets/72f6e578-b7a7-47cf-9531-2d5992c09289)
+- ** View Cart Page
+- ![image](https://github.com/user-attachments/assets/7699fa10-5c5f-46dd-8554-517dda5f7918)
+- ** Address Can be added In the address model
+- ![image](https://github.com/user-attachments/assets/2ce94c77-afa7-47f7-ba6b-57d1261d90ec)
+- ** Billing Summary
+- ![image](https://github.com/user-attachments/assets/8488edd4-cc8e-41d3-8957-911261b30556)
+- ** Loggin Page
+- ![image](https://github.com/user-attachments/assets/ea49d11d-58e9-42ee-951a-10319352cc7e)
+
+  
+
+ 
+
+
 
 ## 🛠️ Tech Stack
 
