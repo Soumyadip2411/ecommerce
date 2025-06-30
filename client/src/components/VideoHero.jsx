@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import './VideoHero.css';
@@ -11,11 +11,15 @@ const VideoHero = () => {
   const wrapperRef = useRef(null);
   const contentRef = useRef(null);
   const videoRef = useRef(null);
+  const [videoLoaded, setVideoLoaded] = useState(false);
 
   useEffect(() => {
+    if (!videoLoaded) return;
+    
     const video = videoRef.current;
     let scrollTrigger;
 
+    // Video frame update function - exactly like the original
     const update = () => {
       if (video && video.duration && scrollTrigger) {
         const progress = scrollTrigger.progress;
@@ -27,6 +31,7 @@ const VideoHero = () => {
 
     requestAnimationFrame(update);
 
+    // Main scroll trigger for video - using fixed distance like original
     scrollTrigger = ScrollTrigger.create({
       trigger: wrapperRef.current,
       start: "top top",
@@ -36,6 +41,7 @@ const VideoHero = () => {
       markers: false,
     });
 
+    // Content fade out animation - exactly like the original
     gsap.to(contentRef.current, {
       y: -100,
       opacity: 0,
@@ -53,6 +59,9 @@ const VideoHero = () => {
       }
     });
 
+
+
+    // Video preload optimization
     setTimeout(() => {
       const src = video.currentSrc || video.src;
       if (window.fetch) {
@@ -66,6 +75,7 @@ const VideoHero = () => {
       }
     }, 500);
 
+    // Touch event handling for mobile
     const once = (el, event, fn) => {
       const handler = (e) => {
         el.removeEventListener(event, handler);
@@ -84,7 +94,7 @@ const VideoHero = () => {
     return () => {
       if (scrollTrigger) scrollTrigger.kill();
     };
-  }, []);
+  }, [videoLoaded]);
 
   return (
     <>
@@ -95,12 +105,7 @@ const VideoHero = () => {
               <img src="/src/assets/logo.png" alt="Ghar Bazaar" className="h-10" />
               <span className='text-[24px] font-bold text-white'>GHAR BAZAAR</span>
             </div>
-            <ul className="video-nav-links">
-              <li><Link to="/" className="text-white hover:text-primary-200 transition-colors">Home</Link></li>
-              <li><Link to="/search" className="text-white hover:text-primary-200 transition-colors">Products</Link></li>
-              <li><Link to="/cart" className="text-white hover:text-primary-200 transition-colors">Cart</Link></li>
-              <li><Link to="/login" className="text-white hover:text-primary-200 transition-colors">Login</Link></li>
-            </ul>
+            
           </nav>
         
           <div className="video-hero-content" ref={contentRef}>
@@ -127,20 +132,16 @@ const VideoHero = () => {
               muted
               playsInline
               preload="auto"
+              onLoadedData={() => setVideoLoaded(true)}
             />
             <div className="video-overlay"></div>
             <img src="/src/assets/images/leaf.png" alt="" className='video-leaf'/>
             <img src="/src/assets/images/leaf1.png" alt="" className='video-leaf1'/>
+            
+
           </div>
           
-          <div className="video-decoration">
-            <div className="video-floating-icon">
-              <FaHeart className="text-primary-200" size={24} />
-            </div>
-            <div className="video-floating-icon-delayed">
-              <FaShoppingCart className="text-accent-200" size={24} />
-            </div>
-          </div>
+
         </div>
       </div>
     </>

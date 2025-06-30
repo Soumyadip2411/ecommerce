@@ -71,37 +71,35 @@ const Home = () => {
 
   return (
     <>
-      {/* Video Hero Section */}
-      <VideoHero />
-      
+      {/* Video Hero Section - Only visible on desktop */}
+      <div className="hidden lg:block">
+        <VideoHero />
+      </div>
+
       {/* Original Content */}
       <motion.section 
-        className=''
+        className='relative z-10 bg-white'
         variants={containerVariants}
         initial="hidden"
         animate="visible"
         exit={{ opacity: 0, y: 20, transition: { duration: 0.3 } }} 
       >
-        <div className='container mx-auto'>
+        {/* Banner only for mobile */}
+        <div className='container mx-auto lg:hidden'>
           <motion.div 
             className={`w-full h-full min-h-48 bg-gradient-to-r from-primary-100/10 to-accent-200/10 rounded-lg overflow-hidden ${!banner && "animate-pulse my-2" } `}
             variants={bannerVariants}
           >
               <img
-                src={banner}
-                className='w-full h-full hidden lg:block'
-                alt='banner' 
-              />
-              <img
                 src={bannerMobile}
-                className='w-full h-full lg:hidden'
+                className='w-full h-full'
                 alt='banner' 
               />
           </motion.div>
-      </div>
+        </div>
       
       <motion.div 
-        className='container mx-auto px-4 my-6 grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-3'
+        className='container mx-auto px-4 my-6 lg:mt-12 grid grid-cols-5 md:grid-cols-8 lg:grid-cols-10 gap-3'
         variants={containerVariants}
         initial="hidden"
         animate="visible"

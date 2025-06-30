@@ -2,18 +2,19 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   font-family: 'Inter', sans-serif;
   color: white;
-  min-height: 100vh;
+  height: 100vh;
   overflow-x: hidden; 
   overflow-y: visible; 
   overflow: hidden;
   position: relative;
+  perspective: 1000px;
 }
 
 .video-hero-wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-height: 100vh;
+  height: 100vh;
   position: relative;
 }
 
@@ -26,6 +27,7 @@
   z-index: 2;
   text-align: center;
   padding: 0 20px;
+  transform-style: preserve-3d;
 }
 
 .video-navbar {
@@ -72,6 +74,16 @@
   margin-bottom: 10px;
   font-weight: 700;
   text-transform: uppercase;
+  animation: glow 2s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+  }
+  to {
+    text-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 30px rgba(255, 255, 255, 0.6);
+  }
 }
 
 .video-headline {
@@ -82,6 +94,18 @@
   color: white;
   margin-bottom: 20px;
   line-height: 1.1;
+  animation: slideInUp 1s ease-out 0.5s both;
+}
+
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .video-subtitle {
@@ -89,6 +113,16 @@
   color: rgba(255, 255, 255, 0.9);
   margin-bottom: 40px;
   font-weight: 400;
+  animation: fadeIn 1s ease-out 1s both;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .video-cta-buttons {
@@ -96,6 +130,7 @@
   gap: 20px;
   justify-content: center;
   flex-wrap: wrap;
+  animation: slideInUp 1s ease-out 1.5s both;
 }
 
 .video-cta-primary {
@@ -166,6 +201,16 @@
   height: 100%;
   background: linear-gradient(135deg, rgba(102, 126, 234, 0.3) 0%, rgba(118, 75, 162, 0.3) 100%);
   z-index: 3;
+  animation: overlayPulse 4s ease-in-out infinite;
+}
+
+@keyframes overlayPulse {
+  0%, 100% {
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.5;
+  }
 }
 
 .video-leaf {
@@ -175,6 +220,7 @@
   right: -20px;
   top: 10%;
   animation: floatLeaf 8s ease-in-out infinite;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
 }
 
 .video-leaf1 {
@@ -184,14 +230,21 @@
   bottom: -20px;
   left: -150px;
   animation: floatLeaf 8s ease-in-out infinite 4s;
+  filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
 }
 
 @keyframes floatLeaf {
   0%, 100% {
-    transform: translateY(0px) rotate(0deg);
+    transform: translateY(0px) rotate(0deg) scale(1);
+  }
+  25% {
+    transform: translateY(-10px) rotate(3deg) scale(1.05);
   }
   50% {
-    transform: translateY(-15px) rotate(5deg);
+    transform: translateY(-20px) rotate(0deg) scale(1.1);
+  }
+  75% {
+    transform: translateY(-10px) rotate(-3deg) scale(1.05);
   }
 }
 
@@ -228,7 +281,20 @@
   }
 }
 
+/* Smooth transition to main content */
+.video-hero + section {
+  margin-top: 0;
+  position: relative;
+  z-index: 10;
+}
+
 /* Responsive Design */
+@media (max-width: 1024px) {
+  .video-hero {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .video-navbar {
     padding: 15px 20px;
@@ -265,6 +331,11 @@
     padding: 12px 24px;
     font-size: 14px;
   }
+  
+  .video-leaf,
+  .video-leaf1 {
+    width: 300px;
+  }
 }
 
 @media (max-width: 480px) {
@@ -279,5 +350,10 @@
   .video-nav-links {
     gap: 15px;
     font-size: 12px;
+  }
+  
+  .video-leaf,
+  .video-leaf1 {
+    width: 200px;
   }
 } 
