@@ -81,10 +81,13 @@ const ProductListPage = () => {
             DisplaySubCatory.map((s, index) => {
                const link = `/${valideURLConvert(s?.category[0]?.name)}-${s?.category[0]?._id}/${valideURLConvert(s.name)}-${s._id}`
               return (
-                <Link to={link} className={`w-full p-2 lg:flex items-center lg:w-full lg:h-16 box-border lg:gap-4 border-b 
-                  hover:bg-green-100 cursor-pointer
-                  ${subCategoryId === s._id ? "bg-green-100" : ""}
-                `}
+                <Link 
+                  to={link} 
+                  key={s._id}
+                  className={`w-full p-2 lg:flex items-center lg:w-full lg:h-16 box-border lg:gap-4 border-b 
+                    hover:bg-green-100 cursor-pointer
+                    ${subCategoryId === s._id ? "bg-green-100" : ""}
+                  `}
                 >
                   <div className='w-fit max-w-28 mx-auto lg:mx-0 bg-white rounded  box-border' >
                     <img
@@ -111,11 +114,11 @@ const ProductListPage = () => {
            <div className='min-h-[80vh] max-h-[80vh] overflow-y-auto relative'>
             <div className=' grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 p-4 gap-4 '>
                 {
-                  data.map((p, index) => {
+                  data.map((p) => {
                     return (
                       <CardProduct
                         data={p}
-                        key={p._id + "productSubCategory" + index}
+                        key={p._id}
                       />
                     )
                   })

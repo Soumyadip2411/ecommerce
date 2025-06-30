@@ -277,9 +277,7 @@ export const searchProduct = async(request,response)=>{
         }
 
         const query = search ? {
-            $text : {
-                $search : search
-            }
+            name: { $regex: `^${search}`, $options: 'i' }
         } : {}
 
         const skip = ( page - 1) * limit
