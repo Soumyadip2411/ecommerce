@@ -113,7 +113,19 @@ return (
                                                                                     user?._id ? (
                                                                                             <div className='relative'>
                                                                                                     <div onClick={()=>setOpenUserMenu(preve => !preve)} className='flex select-none items-center gap-1 cursor-pointer'>
-                                                                                                            <p>Account</p>
+                                                                                                            {
+                                                                                                                    user.avatar ? (
+                                                                                                                            <div className='w-8 h-8 rounded-full overflow-hidden'>
+                                                                                                                                    <img 
+                                                                                                                                        src={user.avatar} 
+                                                                                                                                        alt={user.name}
+                                                                                                                                        className='w-full h-full object-cover'
+                                                                                                                                    />
+                                                                                                                            </div>
+                                                                                                                    ) : (
+                                                                                                                            <p>Account</p>
+                                                                                                                    )
+                                                                                                            }
                                                                                                             {
                                                                                                                     openUserMenu ? (
                                                                                                                                 <GoTriangleUp size={25}/> 
