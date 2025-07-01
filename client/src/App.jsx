@@ -14,6 +14,7 @@ import { handleAddItemCart } from './store/cartProduct'
 import GlobalProvider from './provider/GlobalProvider';
 import { FaCartShopping } from "react-icons/fa6";
 import CartMobileLink from './components/CartMobile';
+import VideoHero from './components/VideoHero';
 
 function App() {
   const dispatch = useDispatch()
@@ -75,7 +76,16 @@ function App() {
         <div className="fixed inset-0 -z-10">
           <div className="w-full h-full bg-gradient-to-br from-gray-50 via-green-50 to-emerald-100" />
         </div>
+        
         <Header openCartSection={openCartSection} setOpenCartSection={setOpenCartSection}/>
+        
+        {/* VideoHero after header for proper sequence */}
+        {location.pathname === '/' && (
+          <div className="relative">
+            <VideoHero />
+          </div>
+        )}
+        
         <main className='min-h-[78vh] relative z-10'>
             <Outlet/>
         </main>
