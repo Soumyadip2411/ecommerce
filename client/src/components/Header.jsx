@@ -76,7 +76,7 @@ return (
                             <div className='container mx-auto flex items-center px-2 justify-between'>
                                                             {/**logo */}
                                                             <div className='h-full'>
-                                                                    <Link to={"/"} className='h-full flex justify-center items-center'>
+                                                                    <Link to={"/"} className='lg:h-full flex justify-center items-center'>
                                                                             <img 
                                                                                     src={logo}
                                                                                     width={170}
@@ -87,7 +87,7 @@ return (
                                                                             <img 
                                                                                     src={logo}
                                                                                     width={120}
-                                                                                    height={60}
+                                                                                    height={120}
                                                                                     alt='logo'
                                                                                     className='lg:hidden'
                                                                             />
@@ -104,7 +104,19 @@ return (
                                                             <div className=''>
                                                                     {/**user icons display in only mobile version**/}
                                                                     <button className='text-neutral-600 lg:hidden' onClick={handleMobileUser}>
-                                                                            <FaRegCircleUser size={26}/>
+                                                                        {
+                                                                               user.avatar ? (
+                                                                                        <div className='w-8 h-8 rounded-full overflow-hidden'>
+                                                                                                <img 
+                                                                                                src={user.avatar} 
+                                                                                                alt={user.name}
+                                                                                                className='w-full h-full object-cover'
+                                                                                                />
+                                                                                        </div>) : (
+                                                                                        <FaRegCircleUser size={26}/>
+                                                                                )  
+                                                                        }
+                                                                            
                                                                     </button>
 
                                                                         {/**Desktop**/}
@@ -184,7 +196,7 @@ return (
                     )
             }
             
-            <div className={`container mx-auto px-2 lg:hidden ${isSearchPage ? 'mt-[-18px]' : ''}`}>
+            <div className={`container mx-auto px-2 lg:hidden ${isSearchPage ? 'mt-[-18px]' : ' '}`}>
                     <Search/>
             </div>
 
