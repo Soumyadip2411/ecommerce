@@ -24,6 +24,10 @@ function App() {
 
   const fetchUser = async()=>{
       const userData = await fetchUserDetails()
+      if (!userData || !userData.data) {
+        // handle unauthenticated state, e.g., clear user state or do nothing
+        return;
+      }
       dispatch(setUserDetails(userData.data))
   }
 

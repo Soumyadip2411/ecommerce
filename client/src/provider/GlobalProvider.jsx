@@ -1,4 +1,4 @@
-import { createContext,useContext, useEffect, useState } from "react";
+import { createContext,useContext, useEffect, useState, useRef } from "react";
 import Axios from "../utils/Axios";
 import SummaryApi from "../common/SummaryApi";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,6 +20,7 @@ const GlobalProvider = ({children}) => {
     const [totalQty,setTotalQty] = useState(0)
     const cartItem = useSelector(state => state.cartItem.cart)
     const user = useSelector(state => state?.user)
+    const isAuthenticated = !!user?._id;
 
     const fetchCartItem = async()=>{
         try {
@@ -100,6 +101,8 @@ const GlobalProvider = ({children}) => {
     const handleLogoutOut = ()=>{
         localStorage.clear()
         dispatch(handleAddItemCart([]))
+        dispatch(handleAddAddress([]))
+        dispatch(setOrder([]))
     }
 
     const fetchAddress = async()=>{
@@ -132,10 +135,15 @@ const GlobalProvider = ({children}) => {
     }
 
     useEffect(()=>{
-      fetchCartItem()
-      handleLogoutOut()
-      fetchAddress()
-      fetchOrder()
+      if (isAuthenticated) {
+        fetchCartItem()
+        fetchAddress()
+        fetchOrder()
+      } else {
+        dispatch(handleAddItemCart([]))
+        dispatch(handleAddAddress([]))
+        dispatch(setOrder([]))
+      }
     },[user])
     
     return(
