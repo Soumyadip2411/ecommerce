@@ -55,7 +55,7 @@ const Header = ({ openCartSection, setOpenCartSection }) => {
   return (
     <header className="h-24 lg:h-20 lg:shadow-md sticky top-0 z-40 flex flex-col justify-center gap-1 bg-white">
       {!(isSearchPage && isMobile) && (
-        <div className="container mx-auto flex items-center px-2 justify-between">
+        <div className="w-full flex items-center px-2 justify-between">
           {/**logo */}
           <div className="h-full">
             <Link
@@ -174,7 +174,7 @@ const Header = ({ openCartSection, setOpenCartSection }) => {
       )}
 
       <div
-        className={`container mx-auto px-2 lg:hidden ${isSearchPage ? "mt-[-18px]" : " "}`}
+        className={`w-full px-2 lg:hidden ${isSearchPage ? "mt-[-18px]" : " "}`}
       >
         <Search />
       </div>
