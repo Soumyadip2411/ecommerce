@@ -19,7 +19,7 @@ import mongoose from 'mongoose'
 const app = express()
 
 // CORS configuration with fallback
-const allowedOrigins = process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : ['http://localhost:5173', 'https://your-frontend-domain.vercel.app']
+const allowedOrigins = process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : ['http://localhost:5173', "https://ecommerce-2dqi.vercel.app/"]
 app.use(cors({
     credentials : true,
     origin : function (origin, callback) {
