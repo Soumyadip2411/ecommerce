@@ -14,12 +14,23 @@ import productRouter from './route/product.route.js'
 import cartRouter from './route/cart.route.js'
 import addressRouter from './route/address.route.js'
 import orderRouter from './route/order.route.js'
+import mongoose from 'mongoose'
 
 const app = express()
+
+// CORS configuration with fallback
+const allowedOrigins = process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : ['http://localhost:5173', 'https://your-frontend-domain.vercel.app']
 app.use(cors({
     credentials : true,
-    origin : process.env.FRONTEND_URL
+    origin : function (origin, callback) {
+        if (!origin || allowedOrigins.includes(origin)) {
+            callback(null, true)
+        } else {
+            callback(new Error('Not allowed by CORS'))
+        }
+    }
 }))
+
 app.use(express.json())
 app.use(cookieParser())
 app.use(morgan())
@@ -27,12 +38,21 @@ app.use(helmet({
     crossOriginResourcePolicy : false
 }))
 
-const PORT = 8080 || process.env.PORT 
+const PORT = process.env.PORT || 8080
 
 app.get("/",(request,response)=>{
     ///server to client
     response.json({
         message : "Server is running " + PORT
+    })
+})
+
+app.get("/health", (request, response) => {
+    response.json({
+        status: "healthy",
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV || "development",
+        database: mongoose.connection.readyState === 1 ? "connected" : "disconnected"
     })
 })
 
@@ -45,9 +65,27 @@ app.use("/api/cart",cartRouter)
 app.use("/api/address",addressRouter)
 app.use('/api/order',orderRouter)
 
-connectDB().then(()=>{
-    app.listen(PORT,()=>{
-        console.log("Server is running",PORT)
-    })
+// Error handling middleware
+app.use((err, req, res, next) => {
+    console.error(err.stack)
+    res.status(500).json({ error: 'Something went wrong!' })
 })
+
+// For serverless deployment, export the app
+export default app
+
+// Only start the server if this file is run directly (not in serverless environment)
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+    connectDB().then(()=>{
+        app.listen(PORT,()=>{
+            console.log("Server is running",PORT)
+        })
+    }).catch((error) => {
+        console.error("Failed to connect to database:", error)
+        // Don't exit in serverless environment
+        if (process.env.NODE_ENV !== 'production') {
+            process.exit(1)
+        }
+    })
+}
 

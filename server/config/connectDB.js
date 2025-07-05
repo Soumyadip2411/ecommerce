@@ -10,11 +10,21 @@ if(!process.env.MONGODB_URI){
 
 async function connectDB(){
     try {
+        // Check if already connected
+        if (mongoose.connection.readyState === 1) {
+            console.log("Already connected to MongoDB")
+            return
+        }
+        
         await mongoose.connect(process.env.MONGODB_URI)
-        console.log("connect DB")
+        console.log("Connected to MongoDB")
     } catch (error) {
-        console.log("Mongodb connect error",error)
-        process.exit(1)
+        console.log("MongoDB connect error", error)
+        // Only exit in development, not in serverless environment
+        if (process.env.NODE_ENV !== 'production') {
+            process.exit(1)
+        }
+        throw error
     }
 }
 

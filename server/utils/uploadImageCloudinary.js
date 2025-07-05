@@ -6,7 +6,7 @@ cloudinary.config({
     api_secret : process.env.CLOUDINARY_API_SECRET_KEY
 })
 
-const uploadImagecloudinary = async(image)=>{
+const uploadImageCloudinary = async(image)=>{
     const buffer = image?.buffer || Buffer.from(await image.arrayBuffer())
 
     const uploadImage = await new Promise((resolve,reject)=>{
@@ -18,4 +18,4 @@ const uploadImagecloudinary = async(image)=>{
     return uploadImage
 }
 
-export default uploadImagecloudinary
+export default uploadImageCloudinary

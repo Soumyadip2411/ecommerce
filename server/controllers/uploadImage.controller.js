@@ -1,4 +1,4 @@
-import uploadImagecloudinary from "../utils/uploadImagecloudinary.js"
+import uploadImageCloudinary from "../utils/uploadImageCloudinary.js"
 
 const uploadImageController = async(request,response)=>{
     try {
@@ -22,7 +22,7 @@ const uploadImageController = async(request,response)=>{
             })
         }
 
-        const uploadImage = await uploadImagecloudinary(file)
+        const uploadImage = await uploadImageCloudinary(file)
 
         if (!uploadImage || !uploadImage.secure_url) {
             return response.status(500).json({
