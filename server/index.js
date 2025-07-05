@@ -18,24 +18,46 @@ import mongoose from 'mongoose'
 
 const app = express()
 
-// CORS configuration with fallback
-const allowedOrigins = process.env.FRONTEND_URL ? [process.env.FRONTEND_URL] : ['http://localhost:5173', "https://ecommerce-2dqi.vercel.app/"]
+// CORS configuration with proper origins
+const allowedOrigins = [
+    'http://localhost:5173',
+    'http://localhost:3000',
+    'https://ecommerce-2dqi.vercel.app',
+    'https://ecommerce-2dqi.vercel.app/',
+    process.env.FRONTEND_URL
+].filter(Boolean) // Remove undefined values
+
+console.log('Allowed CORS origins:', allowedOrigins)
+
 app.use(cors({
-    credentials : true,
-    origin : function (origin, callback) {
-        if (!origin || allowedOrigins.includes(origin)) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
+    credentials: true,
+    origin: function (origin, callback) {
+        // Allow requests with no origin (like mobile apps or curl requests)
+        if (!origin) {
+            console.log('Request with no origin - allowing')
+            return callback(null, true)
         }
-    }
+        
+        // Check if origin is in allowed list
+        if (allowedOrigins.includes(origin)) {
+            console.log('Origin allowed:', origin)
+            return callback(null, true)
+        }
+        
+        console.log('Origin blocked:', origin)
+        console.log('Allowed origins:', allowedOrigins)
+        return callback(new Error('Not allowed by CORS'))
+    },
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept', 'Origin'],
+    exposedHeaders: ['Set-Cookie']
 }))
 
 app.use(express.json())
 app.use(cookieParser())
 app.use(morgan())
 app.use(helmet({
-    crossOriginResourcePolicy : false
+    crossOriginResourcePolicy: false
 }))
 
 const PORT = process.env.PORT || 8080
@@ -52,7 +74,8 @@ app.get("/health", (request, response) => {
         status: "healthy",
         timestamp: new Date().toISOString(),
         environment: process.env.NODE_ENV || "development",
-        database: mongoose.connection.readyState === 1 ? "connected" : "disconnected"
+        database: mongoose.connection.readyState === 1 ? "connected" : "disconnected",
+        corsOrigins: allowedOrigins
     })
 })
 
@@ -67,7 +90,14 @@ app.use('/api/order',orderRouter)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
-    console.error(err.stack)
+    console.error('Error:', err.message)
+    if (err.message === 'Not allowed by CORS') {
+        return res.status(403).json({ 
+            error: 'CORS error', 
+            message: 'Origin not allowed',
+            allowedOrigins: allowedOrigins
+        })
+    }
     res.status(500).json({ error: 'Something went wrong!' })
 })
 
